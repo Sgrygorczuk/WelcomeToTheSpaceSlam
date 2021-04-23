@@ -1,7 +1,22 @@
 fileFormatVersion: 2
 guid: 5a17f3b2cfcecc045a2ee7e711fb45e0
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 8219566699378199167
+    second: Balls_0
+  - first:
+      213: -8299087723631062824
+    second: Balls_1
+  - first:
+      213: 5261312769792952452
+    second: Balls_2
+  - first:
+      213: -6601648269171303701
+    second: Balls_3
+  - first:
+      213: 6101797514081362905
+    second: Balls_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -125,7 +140,112 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Balls_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 27
+        width: 131
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7a411c2d54c11270800000000000000
+      internalID: 8219566699378199167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Balls_1
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 7
+        width: 167
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d05a219fa7b3dc80800000000000000
+      internalID: -8299087723631062824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Balls_2
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 12
+        width: 140
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4884cb7a610f30940800000000000000
+      internalID: 5261312769792952452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Balls_3
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 3
+        width: 160
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bead8ff40eb3264a0800000000000000
+      internalID: -6601648269171303701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Balls_4
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 2
+        width: 159
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d36e26a280fda450800000000000000
+      internalID: 6101797514081362905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
