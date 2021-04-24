@@ -10,7 +10,11 @@ public class Player : MonoBehaviour
     public bool isFrozen;
     private bool hasBeenFrozen;
     public bool isSlowed;
+    private float speedSlow = 1;
     private float input;
+
+    private float spawnTime;
+    public float startSpawn;
 
     public GameObject frozenBrick;
 
@@ -21,6 +25,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spawnTime = startSpawn;
         animator = GetComponent<Animator>(); 
         rigidbody = GetComponent<Rigidbody2D>(); //Looks if the object has a RidgeBody2D component it can connect to 
     }
@@ -30,7 +35,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         //Changes the running state 
-        if(input != 0){
+        if(input != 0 && !isFrozen && !hasBeenFrozen){
             animator.SetBool("IsRunning", true);
         }
         else{
@@ -50,6 +55,18 @@ public class Player : MonoBehaviour
                 hasBeenFrozen = true;
                 rigidbody.velocity = new Vector2(0, rigidbody.velocity.y); //Updates the ridge body 
         }
+
+        if(isSlowed){
+            if(spawnTime <= 0){
+            spawnTime = startSpawn;
+
+             setSlowed(false);
+            }
+            else{
+                spawnTime -= Time.deltaTime;
+            }
+        }
+
     }
 
     // Update is called once per frame
@@ -60,7 +77,7 @@ public class Player : MonoBehaviour
         //float input = Input.GetAxis("Horizontal"); Used for a transtional increase in speed 
 
         if(!isFrozen){
-        rigidbody.velocity = new Vector2(input * speed, rigidbody.velocity.y); //Updates the ridge body 
+        rigidbody.velocity = new Vector2(input * speed * speedSlow, rigidbody.velocity.y); //Updates the ridge body 
         }
     }
 
@@ -85,6 +102,17 @@ public class Player : MonoBehaviour
     }
 
     public bool getHasBeenFrozen(){return this.hasBeenFrozen;
+    }
+
+    public void setSlowed(bool slowed){
+        isSlowed = slowed;
+        if(isSlowed){
+            //material.SetColor("_Color", Color.green);
+            speedSlow = 0.1f;
+        }
+        else{
+            speedSlow = 1f;
+        }
     }
 
 }

@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour
     public float maxSpeed;
     public int damage;
     private float speed;
-    public int type; 
+    public int type;
+    public GameObject splat;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,21 @@ public class Enemy : MonoBehaviour
             if(type == 2 && !playerScript.isFrozen){
                 playerScript.setFrozen(true);
             }
+
+            if(type == 4 && !playerScript.isSlowed){
+                playerScript.setSlowed(true);
+            }
+
+            Destroy(gameObject);
+        }
+
+        if(hitbox.tag == "Ground"){
+
+            if(type == 4){
+                Instantiate(splat, this.transform.position, Quaternion.identity);
+            }
+
+            Destroy(gameObject);
         }
     }
 }
