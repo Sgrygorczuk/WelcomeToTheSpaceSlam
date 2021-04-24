@@ -7,7 +7,12 @@ public class Player : MonoBehaviour
     //============================== Vars 
     public float speed; 
     public int health;
+    public bool isFrozen;
+    private bool hasBeenFrozen;
+    public bool isSlowed;
     private float input;
+
+    public GameObject frozenBrick;
 
     //============================= Referanced Object Traits 
     Rigidbody2D rigidbody;
@@ -38,6 +43,13 @@ public class Player : MonoBehaviour
         else if(input < 0){
             transform.eulerAngles = new Vector3(0,180,0);
         }
+
+        if(isFrozen && !hasBeenFrozen){
+                //Creates the object 
+                Instantiate(frozenBrick, this.transform.position, Quaternion.identity);
+                hasBeenFrozen = true;
+                rigidbody.velocity = new Vector2(0, rigidbody.velocity.y); //Updates the ridge body 
+        }
     }
 
     // Update is called once per frame
@@ -47,9 +59,9 @@ public class Player : MonoBehaviour
         input = Input.GetAxisRaw("Horizontal"); //Gets just -1 and 1 for movment or 0 if nothing is pressed 
         //float input = Input.GetAxis("Horizontal"); Used for a transtional increase in speed 
 
-        print(input);
-
+        if(!isFrozen){
         rigidbody.velocity = new Vector2(input * speed, rigidbody.velocity.y); //Updates the ridge body 
+        }
     }
 
     public void damagePlayer(int damage){
@@ -59,4 +71,20 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    public void setFrozen(bool frozen){
+        this.isFrozen = frozen;
+    }
+
+    public void setIsSlowed(bool slowed){
+        this.isSlowed = slowed;
+    }
+
+    public void setHasBeenFrozen(bool frozen){
+        this.hasBeenFrozen = frozen;
+    }
+
+    public bool getHasBeenFrozen(){return this.hasBeenFrozen;
+    }
+
 }

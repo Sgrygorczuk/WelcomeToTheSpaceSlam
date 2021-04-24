@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public float maxSpeed;
     public int damage;
     private float speed;
+    public int type; 
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,10 @@ public class Enemy : MonoBehaviour
         
         if(hitbox.tag == "Player"){
             playerScript.damagePlayer(damage);
+
+            if(type == 2 && !playerScript.isFrozen){
+                playerScript.setFrozen(true);
+            }
         }
     }
 }
