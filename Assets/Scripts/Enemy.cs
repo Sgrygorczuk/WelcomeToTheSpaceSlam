@@ -38,12 +38,17 @@ public class Enemy : MonoBehaviour
             if(type == 0){
                 playerScript.setIsHoldingBall(true);
             }
-
-            if(type == 2 && !playerScript.isFrozen){
+            else if(type == 1 && !playerScript.isSlowed &&  !playerScript.isSpeedy && !playerScript.isImmune ){
+                playerScript.setIsSpeedy(true);
+            }
+            else if(type == 2 && !playerScript.isFrozen && !playerScript.isImmune){
                 playerScript.isFrozen = true;
             }
-
-            if(type == 4 && !playerScript.isSlowed){
+            else if(type == 3 && !playerScript.isImmune){
+                playerScript.isImmune = true;
+                playerScript.trailRenderer.time = 1;
+            }
+            else if(type == 4 && !playerScript.isSlowed &&  !playerScript.isSpeedy && !playerScript.isImmune){
                 playerScript.setIsSlowed(true);
             }
 
