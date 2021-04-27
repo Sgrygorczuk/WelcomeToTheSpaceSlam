@@ -32,8 +32,8 @@ public class Splat : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitbox){
         
-        if(hitbox.tag == "Player"){
-            Destroy(gameObject);
+        if(hitbox.tag == "Player" && (playerScript.getInput() == -1 || playerScript.getInput() == 1)){ 
+            playerScript.isTripped = true;
         }
     }
 }

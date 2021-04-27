@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     //============================= External Scripts 
     Player playerScript;
     
-    //============================= Varss 
+    //============================= Vars
     public float minSpeed;
     public float maxSpeed;
     public int damage;
@@ -35,12 +35,16 @@ public class Enemy : MonoBehaviour
         if(hitbox.tag == "Player"){
             playerScript.damagePlayer(damage);
 
+            if(type == 0){
+                playerScript.setIsHoldingBall(true);
+            }
+
             if(type == 2 && !playerScript.isFrozen){
-                playerScript.setFrozen(true);
+                playerScript.isFrozen = true;
             }
 
             if(type == 4 && !playerScript.isSlowed){
-                playerScript.setSlowed(true);
+                playerScript.setIsSlowed(true);
             }
 
             Destroy(gameObject);

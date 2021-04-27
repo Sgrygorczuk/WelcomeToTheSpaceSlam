@@ -5,30 +5,29 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
 
-
-    private float spawnTime;
-    public float startSpawn;
+    private float spawnTimer;
+    public float SPAWN_TIME;
 
     Player playerScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        spawnTime = startSpawn;
+        spawnTimer = SPAWN_TIME;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(spawnTime <= 0 && playerScript.getHasBeenFrozen()){
-            spawnTime = startSpawn;
-            playerScript.setFrozen(false);
-            playerScript.setHasBeenFrozen(false);
+        if(spawnTimer <= 0 && playerScript.hasBeenFrozen){
+            spawnTimer = SPAWN_TIME;
+            playerScript.isFrozen = false;
+            playerScript.hasBeenFrozen = false;
             Destroy(gameObject);
         }
         else{
-            spawnTime -= Time.deltaTime;
+            spawnTimer -= Time.deltaTime;
         }
     }
 }

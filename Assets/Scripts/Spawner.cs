@@ -23,9 +23,16 @@ public class Spawner : MonoBehaviour
 
                 if(spawnTime <= 0){
                 //Grabs the random location where we're going to spawn it 
-                Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; 
+                int spawnPoint = Random.Range(0, spawnPoints.Length);
+                Transform randomSpawnPoint = spawnPoints[spawnPoint]; 
                 //Gets the type of hazard we're spawning 
-                GameObject randomHazard = hazards[Random.Range(0, hazards.Length)];
+                GameObject randomHazard;
+                if(spawnPoint == 2){
+                    randomHazard = hazards[0];
+                }
+                else{
+                    randomHazard = hazards[Random.Range(1, hazards.Length)];
+                }
 
                 //Creates the object 
                 Instantiate(randomHazard, randomSpawnPoint.position, Quaternion.identity);
