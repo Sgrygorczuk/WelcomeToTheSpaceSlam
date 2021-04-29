@@ -101,6 +101,7 @@ MonoBehaviour:
   damage: 0
   type: 2
   splat: {fileID: 0}
+  FX: {fileID: 1394418375539890343, guid: b097e92a330cb90d99f12457a4738bf4, type: 3}
 --- !u!61 &3951260217454524253
 BoxCollider2D:
   m_ObjectHideFlags: 0

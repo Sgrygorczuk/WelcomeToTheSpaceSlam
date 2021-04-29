@@ -11,6 +11,8 @@ public class Goal : MonoBehaviour
     public GameObject[] midRow;  
     public GameObject[] backRow; 
 
+    public GameObject FX; 
+
     private bool startWave = false; 
 
     private int currentSpot = 0;
@@ -21,6 +23,9 @@ public class Goal : MonoBehaviour
     private float riseInc = 0.05f;
     private float[] intialY = new float[3]; 
 
+    private float initalXGoal;
+    private float intialYGoal;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +34,9 @@ public class Goal : MonoBehaviour
         intialY[0] = frontRow[0].transform.position.y;
         intialY[1] = midRow[0].transform.position.y;
         intialY[2] = backRow[0].transform.position.y;
+
+        initalXGoal = transform.position.x;
+        intialYGoal = transform.position.y;
     }
 
     // Update is called once per frame
@@ -83,7 +91,18 @@ public class Goal : MonoBehaviour
         
         if(hitbox.tag == "Player" && playerScript.isHoldingBall && playerGoal){
             playerScript.setIsHoldingBall(false);
+            Instantiate(FX, transform.position, Quaternion.identity);
             startWave = true;
+            playerScript.playerScore++;
+            playerScript.playerscoreText.text =  playerScript.playerscoreText.text = "Home: " + playerScript.playerScore.ToString();
+            if(transform.position.x == initalXGoal){
+                this.transform.position = new Vector3(-initalXGoal, intialYGoal, 0);
+                transform.eulerAngles = new Vector3(0,0,0); 
+            }
+            else{
+                this.transform.position = new Vector3(initalXGoal, intialYGoal, 0);
+                transform.eulerAngles = new Vector3(0,180,0);
+            }
         }
 
     }

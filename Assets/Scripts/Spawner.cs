@@ -15,6 +15,8 @@ public class Spawner : MonoBehaviour
 
     public GameObject player;
 
+    public bool basketballSpawner; 
+
     // Update is called once per frame
     void Update()
     {
@@ -27,15 +29,14 @@ public class Spawner : MonoBehaviour
                 Transform randomSpawnPoint = spawnPoints[spawnPoint]; 
                 //Gets the type of hazard we're spawning 
                 GameObject randomHazard;
-                if(spawnPoint == 2){
-                    randomHazard = hazards[0];
+                randomHazard = hazards[Random.Range(1, hazards.Length)];
+            
+                if(basketballSpawner){
+                    Instantiate(hazards[0], randomSpawnPoint.position, Quaternion.identity);
                 }
                 else{
-                    randomHazard = hazards[Random.Range(1, hazards.Length)];
+                    Instantiate(randomHazard, randomSpawnPoint.position, Quaternion.identity);
                 }
-
-                //Creates the object 
-                Instantiate(randomHazard, randomSpawnPoint.position, Quaternion.identity);
 
                 //Makes the speed of spawning faster as the game goes on 
                 if(startSpawn >= MIN_TIME){

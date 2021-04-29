@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {    
@@ -9,7 +10,6 @@ public class Player : MonoBehaviour
     private float yInput = 0;
     public bool isInAir = false;
     public float speed; 
-    public int health;
 
     //========================== Frozen 
     public bool isFrozen;
@@ -61,6 +61,12 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
 
     public TrailRenderer trailRenderer;
+    
+
+    //=================== Score 
+    public Text playerscoreText; 
+
+    public int playerScore = 0;
 
     void Start()
     {
@@ -72,6 +78,7 @@ public class Player : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.time = 0;
         ball.color = new Color (0, 0, 0, 0); 
+        playerscoreText.text = "Home: " + playerScore.ToString();
     }
 
     // Update is called once per frame
@@ -269,7 +276,7 @@ public class Player : MonoBehaviour
             zAngle = 0;
             if (Input.GetKey(KeyCode.UpArrow) && !isInAir)
             {
-               yInput = 15; 
+               yInput = 8; 
                isInAir = true;
             }
             else{
@@ -313,16 +320,6 @@ public class Player : MonoBehaviour
             isInAir = false;
         }
     }
-    
-
-    public void damagePlayer(int damage){
-        health -= damage;
-
-        if(health <= 0){
-            Destroy(gameObject);
-        }
-    }
-
 
     /*
     * Purpose: Changes the slow state that the player is in 

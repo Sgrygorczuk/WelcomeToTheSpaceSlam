@@ -1,19 +1,7 @@
 fileFormatVersion: 2
-guid: c5cf7b58f99e79137a569dfbb3bda38d
+guid: 4f33dba77c2ab9d04ab5cb3001034813
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 8720604468809159126
-    second: Symbols_0
-  - first:
-      213: -3739395637988037281
-    second: Symbols_1
-  - first:
-      213: -469525390435789673
-    second: Symbols_2
-  - first:
-      213: -5196480314518052078
-    second: Symbols_3
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,85 +127,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Symbols_0
+      name: BackgroundElements_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 8
-        width: 56
-        height: 50
+        x: 0
+        y: 0
+        width: 640
+        height: 643
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d1dd068f8fc50970800000000000000
-      internalID: 8720604468809159126
+      spriteID: 377cfe2107ea60e60800000000000000
+      internalID: 7928215990409611123
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Symbols_1
+      name: BackgroundElements_1
       rect:
         serializedVersion: 2
-        x: 281
-        y: 1
-        width: 59
-        height: 59
+        x: 642
+        y: 442
+        width: 189
+        height: 219
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5de31bba7ffa1cc0800000000000000
-      internalID: -3739395637988037281
+      spriteID: c8bcf366708f65390800000000000000
+      internalID: -7829798191473112180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Symbols_2
+      name: BackgroundElements_2
       rect:
         serializedVersion: 2
-        x: 104
-        y: 1
-        width: 75
-        height: 58
+        x: 728
+        y: 194
+        width: 63
+        height: 76
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7945c022529eb79f0800000000000000
-      internalID: -469525390435789673
+      spriteID: 4fb6f59b2e68eba20800000000000000
+      internalID: 3080047503498767348
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Symbols_3
+      name: BackgroundElements_3
       rect:
         serializedVersion: 2
-        x: 197
-        y: 7
-        width: 77
-        height: 53
+        x: 749
+        y: 332
+        width: 101
+        height: 84
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21367d2afa462e7b0800000000000000
-      internalID: -5196480314518052078
+      spriteID: b3eff87b198ea8620800000000000000
+      internalID: 2777287832774901307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackgroundElements_4
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 210
+        width: 65
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 236aac21724e7cae0800000000000000
+      internalID: -1529002691998865870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackgroundElements_5
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 77
+        width: 55
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a49d84b495f22f100800000000000000
+      internalID: 140226598963566922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackgroundElements_6
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 436
+        width: 69
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cefa6482a30e61740800000000000000
+      internalID: 5122528166568964076
       vertices: []
       indices: 
       edges: []

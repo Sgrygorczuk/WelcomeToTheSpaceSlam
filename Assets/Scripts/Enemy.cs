@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     private float speed;
     public int type;
     public GameObject splat;
+    public GameObject FX;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,6 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D hitbox){
         
         if(hitbox.tag == "Player"){
-            playerScript.damagePlayer(damage);
 
             if(type == 0){
                 playerScript.setIsHoldingBall(true);
@@ -52,6 +52,8 @@ public class Enemy : MonoBehaviour
                 playerScript.setIsSlowed(true);
             }
 
+            Instantiate(FX, playerScript.transform.position, Quaternion.identity);
+
             Destroy(gameObject);
         }
 
@@ -59,6 +61,9 @@ public class Enemy : MonoBehaviour
 
             if(type == 4){
                 Instantiate(splat, this.transform.position, Quaternion.identity);
+            }
+            else{
+                Instantiate(FX, transform.position, Quaternion.identity);
             }
 
             Destroy(gameObject);

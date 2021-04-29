@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: c5cf7b58f99e79137a569dfbb3bda38d
+guid: 4a741ad74e55e20fa93d683f94d70418
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8720604468809159126
-    second: Symbols_0
+      213: 8894201953851282084
+    second: Buttons_0
   - first:
-      213: -3739395637988037281
-    second: Symbols_1
+      213: 7664807735657788756
+    second: Buttons_1
   - first:
-      213: -469525390435789673
-    second: Symbols_2
-  - first:
-      213: -5196480314518052078
-    second: Symbols_3
+      213: -5402412272178277761
+    second: Buttons_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,85 +136,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Symbols_0
+      name: Buttons_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 8
-        width: 56
-        height: 50
+        x: 38
+        y: 481
+        width: 682
+        height: 166
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d1dd068f8fc50970800000000000000
-      internalID: 8720604468809159126
+      spriteID: 4a214e3bd8d8e6b70800000000000000
+      internalID: 8894201953851282084
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Symbols_1
+      name: Buttons_1
       rect:
         serializedVersion: 2
-        x: 281
-        y: 1
-        width: 59
-        height: 59
+        x: 134
+        y: 314
+        width: 519
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5de31bba7ffa1cc0800000000000000
-      internalID: -3739395637988037281
+      spriteID: 4557c83960ede5a60800000000000000
+      internalID: 7664807735657788756
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Symbols_2
+      name: Buttons_2
       rect:
         serializedVersion: 2
-        x: 104
-        y: 1
-        width: 75
-        height: 58
+        x: 16
+        y: 98
+        width: 390
+        height: 147
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7945c022529eb79f0800000000000000
-      internalID: -469525390435789673
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Symbols_3
-      rect:
-        serializedVersion: 2
-        x: 197
-        y: 7
-        width: 77
-        height: 53
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 21367d2afa462e7b0800000000000000
-      internalID: -5196480314518052078
+      spriteID: f725a9269a6c605b0800000000000000
+      internalID: -5402412272178277761
       vertices: []
       indices: 
       edges: []
