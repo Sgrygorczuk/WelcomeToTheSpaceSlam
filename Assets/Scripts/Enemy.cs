@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     //============================= External Scripts 
     Player playerScript;
+    Player playerScriptTwo;
     
     //============================= Vars
     public float minSpeed;
@@ -22,6 +23,10 @@ public class Enemy : MonoBehaviour
         speed = Random.Range(minSpeed, maxSpeed);
 
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        if( GameObject.FindGameObjectWithTag("Player Two").GetComponent<Player>() != null){
+            playerScriptTwo = GameObject.FindGameObjectWithTag("Player Two").GetComponent<Player>();
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +58,30 @@ public class Enemy : MonoBehaviour
             }
 
             Instantiate(FX, playerScript.transform.position, Quaternion.identity);
+
+            Destroy(gameObject);
+        }
+
+        if(hitbox.tag == "Player Two"){
+
+            if(type == 0){
+                playerScriptTwo.setIsHoldingBall(true);
+            }
+            else if(type == 1 && !playerScriptTwo.isSlowed &&  !playerScriptTwo.isSpeedy && !playerScriptTwo.isImmune ){
+                playerScriptTwo.setIsSpeedy(true);
+            }
+            else if(type == 2 && !playerScriptTwo.isFrozen && !playerScriptTwo.isImmune){
+                playerScriptTwo.isFrozen = true;
+            }
+            else if(type == 3 && !playerScript.isImmune){
+                playerScriptTwo.isImmune = true;
+                playerScriptTwo.trailRenderer.time = 1;
+            }
+            else if(type == 4 && !playerScriptTwo.isSlowed &&  !playerScriptTwo.isSpeedy && !playerScriptTwo.isImmune){
+                playerScriptTwo.setIsSlowed(true);
+            }
+
+            Instantiate(FX, playerScriptTwo.transform.position, Quaternion.identity);
 
             Destroy(gameObject);
         }

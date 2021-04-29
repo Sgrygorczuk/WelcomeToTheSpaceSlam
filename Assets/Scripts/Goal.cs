@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Goal : MonoBehaviour
 {
     //============================= External Scripts 
     Player playerScript;
 
+    Player playerScriptTwo;
+
     public GameObject[] frontRow; 
     public GameObject[] midRow;  
     public GameObject[] backRow; 
 
     public GameObject FX; 
+
+    public Text timeText; 
+    private float timer;
+    public float TIME;
 
     private bool startWave = false; 
 
@@ -31,17 +38,30 @@ public class Goal : MonoBehaviour
     void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerScriptTwo = GameObject.FindGameObjectWithTag("Player Two").GetComponent<Player>();
+
         intialY[0] = frontRow[0].transform.position.y;
         intialY[1] = midRow[0].transform.position.y;
         intialY[2] = backRow[0].transform.position.y;
 
         initalXGoal = transform.position.x;
         intialYGoal = transform.position.y;
+
+        timer = TIME;
+        timeText.text = timer.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if(timer <= 0){
+        }
+        else{
+            timer -= Time.deltaTime;
+            timeText.text = (Mathf.Round((timer/60) * 10.0f) * 0.1f).ToString();
+        }
+
         if(startWave){
             for(int i = 0; i < frontRow.Length; i++){
                 if(i == currentSpot){
@@ -94,7 +114,35 @@ public class Goal : MonoBehaviour
             Instantiate(FX, transform.position, Quaternion.identity);
             startWave = true;
             playerScript.playerScore++;
-            playerScript.playerscoreText.text =  playerScript.playerscoreText.text = "Home: " + playerScript.playerScore.ToString();
+            if(playerScript.isPlayerTwo){
+                playerScript.playerscoreText.text =  playerScript.playerscoreText.text = "Away: " + playerScript.playerScore.ToString();
+
+            }
+            else{
+                playerScript.playerscoreText.text =  playerScript.playerscoreText.text = "Home: " + playerScript.playerScore.ToString();
+            }
+            if(transform.position.x == initalXGoal){
+                this.transform.position = new Vector3(-initalXGoal, intialYGoal, 0);
+                transform.eulerAngles = new Vector3(0,0,0); 
+            }
+            else{
+                this.transform.position = new Vector3(initalXGoal, intialYGoal, 0);
+                transform.eulerAngles = new Vector3(0,180,0);
+            }
+        }
+ 
+        if(hitbox.tag == "Player Two" && playerScriptTwo.isHoldingBall && playerGoal){
+            playerScriptTwo.setIsHoldingBall(false);
+            Instantiate(FX, transform.position, Quaternion.identity);
+            startWave = true;
+            playerScriptTwo.playerScore++;
+            if(playerScriptTwo.isPlayerTwo){
+                playerScriptTwo.playerscoreText.text =  playerScriptTwo.playerscoreText.text = "Away: " + playerScriptTwo.playerScore.ToString();
+
+            }
+            else{
+                playerScriptTwo.playerscoreText.text =  playerScriptTwo.playerscoreText.text = "Home: " + playerScriptTwo.playerScore.ToString();
+            }
             if(transform.position.x == initalXGoal){
                 this.transform.position = new Vector3(-initalXGoal, intialYGoal, 0);
                 transform.eulerAngles = new Vector3(0,0,0); 

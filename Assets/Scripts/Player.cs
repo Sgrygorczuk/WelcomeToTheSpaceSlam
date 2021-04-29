@@ -68,6 +68,10 @@ public class Player : MonoBehaviour
 
     public int playerScore = 0;
 
+    //=================== Control 
+
+    public bool isPlayerTwo;
+
     void Start()
     {
         immuneTimer = IMMUNE_TIME;
@@ -78,7 +82,12 @@ public class Player : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.time = 0;
         ball.color = new Color (0, 0, 0, 0); 
-        playerscoreText.text = "Home: " + playerScore.ToString();
+        if(isPlayerTwo){
+            playerscoreText.text = "Away: " + playerScore.ToString();
+        }
+        else{
+            playerscoreText.text = "Home: " + playerScore.ToString();
+        }
     }
 
     // Update is called once per frame
@@ -272,9 +281,32 @@ public class Player : MonoBehaviour
         //float input = Input.GetAxis("Horizontal"); Used for a transtional increase in speed 
 
         if(!isFrozen && !isTripped){
-            xInput = Input.GetAxisRaw("Horizontal"); //Gets just -1 and 1 for movment or 0 if nothing is pressed 
+            if(isPlayerTwo){
+                if(Input.GetKey(KeyCode.A)){
+                    xInput = -1;
+                }
+                else if(Input.GetKey(KeyCode.D)){
+                    xInput = 1;
+                }
+                else{
+                    xInput = 0;
+                }
+            }
+            else{
+                if(Input.GetKey(KeyCode.LeftArrow)){
+                    xInput = -1;
+                }
+                else if(Input.GetKey(KeyCode.RightArrow)){
+                    xInput = 1;
+                }
+                else{
+                    xInput = 0;
+                }
+            }
+
             zAngle = 0;
-            if (Input.GetKey(KeyCode.UpArrow) && !isInAir)
+
+            if ((!isPlayerTwo && Input.GetKey(KeyCode.UpArrow) && !isInAir) || (isPlayerTwo && Input.GetKey(KeyCode.W) && !isInAir))
             {
                yInput = 8; 
                isInAir = true;
@@ -287,7 +319,7 @@ public class Player : MonoBehaviour
         }
         //If Frozen no movement 
         else if(isFrozen){
-            rigidbody.velocity = new Vector2(0, 0.5f);
+            rigidbody.velocity = new Vector2(0, 0.3f);
         }
         //If is tripped slides in the last moved direction 
         else if(isTripped){
