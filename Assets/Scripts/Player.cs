@@ -72,6 +72,8 @@ public class Player : MonoBehaviour
 
     public bool isPlayerTwo;
 
+    public bool gameOver = false;
+
     void Start()
     {
         immuneTimer = IMMUNE_TIME;
@@ -83,10 +85,10 @@ public class Player : MonoBehaviour
         trailRenderer.time = 0;
         ball.color = new Color (0, 0, 0, 0); 
         if(isPlayerTwo){
-            playerscoreText.text = "Away: " + playerScore.ToString();
+            playerscoreText.text = "Home: " + playerScore.ToString();
         }
         else{
-            playerscoreText.text = "Home: " + playerScore.ToString();
+            playerscoreText.text = "Away: " + playerScore.ToString();
         }
     }
 
@@ -94,11 +96,13 @@ public class Player : MonoBehaviour
     //Used for everything else 
     void Update()
     {
-        spriteUpdates(); 
-        slowedSpeedyUpdates();
-        frozenUpdates();
-        trippedUpdates();
-        immuneUpdates();
+        if(!gameOver){
+            spriteUpdates(); 
+            slowedSpeedyUpdates();
+            frozenUpdates();
+            trippedUpdates();
+            immuneUpdates();
+        }
     }
 
     /*
@@ -278,71 +282,73 @@ public class Player : MonoBehaviour
     */
     void FixedUpdate()
     {
-        //float input = Input.GetAxis("Horizontal"); Used for a transtional increase in speed 
+        if(!gameOver){
+            //float input = Input.GetAxis("Horizontal"); Used for a transtional increase in speed 
 
-        if(!isFrozen && !isTripped){
-            if(isPlayerTwo){
-                if(Input.GetKey(KeyCode.A)){
-                    xInput = -1;
-                }
-                else if(Input.GetKey(KeyCode.D)){
-                    xInput = 1;
+            if(!isFrozen && !isTripped){
+                if(isPlayerTwo){
+                    if(Input.GetKey(KeyCode.A)){
+                        xInput = -1;
+                    }
+                    else if(Input.GetKey(KeyCode.D)){
+                        xInput = 1;
+                    }
+                    else{
+                        xInput = 0;
+                    }
                 }
                 else{
-                    xInput = 0;
+                    if(Input.GetKey(KeyCode.LeftArrow)){
+                        xInput = -1;
+                    }
+                    else if(Input.GetKey(KeyCode.RightArrow)){
+                        xInput = 1;
+                    }
+                    else{
+                        xInput = 0;
+                    }
                 }
-            }
-            else{
-                if(Input.GetKey(KeyCode.LeftArrow)){
-                    xInput = -1;
-                }
-                else if(Input.GetKey(KeyCode.RightArrow)){
-                    xInput = 1;
+
+                zAngle = 0;
+
+                if ((!isPlayerTwo && Input.GetKey(KeyCode.UpArrow) && !isInAir) || (isPlayerTwo && Input.GetKey(KeyCode.W) && !isInAir))
+                {
+                yInput = 8; 
+                isInAir = true;
                 }
                 else{
-                    xInput = 0;
+                    yInput = rigidbody.velocity.y;
                 }
-            }
 
-            zAngle = 0;
-
-            if ((!isPlayerTwo && Input.GetKey(KeyCode.UpArrow) && !isInAir) || (isPlayerTwo && Input.GetKey(KeyCode.W) && !isInAir))
-            {
-               yInput = 8; 
-               isInAir = true;
+                rigidbody.velocity = new Vector2(xInput * speed * speedSlow, yInput); //Updates the ridge body 
             }
-            else{
-                yInput = rigidbody.velocity.y;
+            //If Frozen no movement 
+            else if(isFrozen){
+                rigidbody.velocity = new Vector2(0, 0.3f);
             }
-
-            rigidbody.velocity = new Vector2(xInput * speed * speedSlow, yInput); //Updates the ridge body 
-        }
-        //If Frozen no movement 
-        else if(isFrozen){
-            rigidbody.velocity = new Vector2(0, 0.3f);
-        }
-        //If is tripped slides in the last moved direction 
-        else if(isTripped){
-            if(trippedTimer >= TRIPPED_TIME/2f){
-                rigidbody.velocity = new Vector2(xInput * speed * speedSlow, rigidbody.velocity.y); //Updates the ridge body 
-            }
-            else{
-                rigidbody.velocity = new Vector2(0, 0);
-            }
-        
-            if(xInput > 0){
-                zAngle += 3; 
-                if(zAngle > 90){
-                    zAngle = 90;
+            //If is tripped slides in the last moved direction 
+            else if(isTripped){
+                if(trippedTimer >= TRIPPED_TIME/2f){
+                    rigidbody.velocity = new Vector2(xInput * speed * speedSlow, rigidbody.velocity.y); //Updates the ridge body 
                 }
-                transform.eulerAngles = new Vector3(0,0,zAngle);
-             }
-            else if(xInput < 0){
-                zAngle -= 3; 
-                if(zAngle < -90){
-                    zAngle = -90;
+                else{
+                    rigidbody.velocity = new Vector2(0, 0);
                 }
-                transform.eulerAngles = new Vector3(0,180,zAngle);
+            
+                if(xInput > 0){
+                    zAngle += 3; 
+                    if(zAngle > 90){
+                        zAngle = 90;
+                    }
+                    transform.eulerAngles = new Vector3(0,0,zAngle);
+                }
+                else if(xInput < 0){
+                    zAngle -= 3; 
+                    if(zAngle < -90){
+                        zAngle = -90;
+                    }
+                    transform.eulerAngles = new Vector3(0,180,zAngle);
+                }
             }
         }
     }

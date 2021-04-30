@@ -10,6 +10,8 @@ public class Goal : MonoBehaviour
 
     Player playerScriptTwo;
 
+    public GameObject loseScreen;
+
     public GameObject[] frontRow; 
     public GameObject[] midRow;  
     public GameObject[] backRow; 
@@ -19,6 +21,11 @@ public class Goal : MonoBehaviour
     public Text timeText; 
     private float timer;
     public float TIME;
+
+    public Text endTeamText;
+    public Text endScoreText; 
+    Animator playerOne; 
+    Animator playerTwo; 
 
     private bool startWave = false; 
 
@@ -33,12 +40,17 @@ public class Goal : MonoBehaviour
     private float initalXGoal;
     private float intialYGoal;
 
+    AudioSource source; 
+
 
     // Start is called before the first frame update
     void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         playerScriptTwo = GameObject.FindGameObjectWithTag("Player Two").GetComponent<Player>();
+
+        playerOne = GameObject.FindGameObjectWithTag("P1").GetComponent<Animator>();
+        playerTwo = GameObject.FindGameObjectWithTag("P2").GetComponent<Animator>();
 
         intialY[0] = frontRow[0].transform.position.y;
         intialY[1] = midRow[0].transform.position.y;
@@ -49,6 +61,10 @@ public class Goal : MonoBehaviour
 
         timer = TIME;
         timeText.text = timer.ToString();
+
+        loseScreen.SetActive(false);
+
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -56,10 +72,35 @@ public class Goal : MonoBehaviour
     {
 
         if(timer <= 0){
+            playerScript.gameOver = true;
+            playerScriptTwo.gameOver = true;
+            loseScreen.SetActive(true);
+
+            if(playerScript.playerScore > playerScriptTwo.playerScore){
+                endTeamText.text = "Moon Mates Win";
+                endScoreText.text = "Score: " + playerScript.playerScore.ToString();
+                if(!playerScriptTwo.isPlayerTwo)
+                {
+                    playerTwo.SetBool("Lost", true);
+                }
+
+            }
+            else if(playerScript.playerScore == playerScriptTwo.playerScore){
+                endTeamText.text = "Draw";
+                endScoreText.text = "Score: " + playerScriptTwo.playerScore.ToString();
+            }
+            else{
+                endTeamText.text = "Star Strikers Win";
+                endScoreText.text = "Score: " + playerScriptTwo.playerScore.ToString();
+                playerOne.SetBool("Lost", true);
+            }
         }
         else{
             timer -= Time.deltaTime;
-            timeText.text = (Mathf.Round((timer/60) * 10.0f) * 0.1f).ToString();
+            string seconds = Mathf.FloorToInt(timer%60) >= 10 ? (Mathf.FloorToInt(timer%60)).ToString() : 
+                "0" + (Mathf.FloorToInt(timer%60)).ToString();
+            
+            timeText.text = timer > 0 ? (Mathf.FloorToInt(timer/60) + ":" + seconds) : "0:00";
         }
 
         if(startWave){
@@ -108,18 +149,19 @@ public class Goal : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D hitbox){
-        
+        source.Play();
+
         if(hitbox.tag == "Player" && playerScript.isHoldingBall && playerGoal){
             playerScript.setIsHoldingBall(false);
             Instantiate(FX, transform.position, Quaternion.identity);
             startWave = true;
             playerScript.playerScore++;
             if(playerScript.isPlayerTwo){
-                playerScript.playerscoreText.text =  playerScript.playerscoreText.text = "Away: " + playerScript.playerScore.ToString();
+                playerScript.playerscoreText.text =  playerScript.playerscoreText.text = "Home: " + playerScript.playerScore.ToString();
 
             }
             else{
-                playerScript.playerscoreText.text =  playerScript.playerscoreText.text = "Home: " + playerScript.playerScore.ToString();
+                playerScript.playerscoreText.text =  playerScript.playerscoreText.text = "Away: " + playerScript.playerScore.ToString();
             }
             if(transform.position.x == initalXGoal){
                 this.transform.position = new Vector3(-initalXGoal, intialYGoal, 0);
@@ -137,11 +179,11 @@ public class Goal : MonoBehaviour
             startWave = true;
             playerScriptTwo.playerScore++;
             if(playerScriptTwo.isPlayerTwo){
-                playerScriptTwo.playerscoreText.text =  playerScriptTwo.playerscoreText.text = "Away: " + playerScriptTwo.playerScore.ToString();
+                playerScriptTwo.playerscoreText.text =  playerScriptTwo.playerscoreText.text = "Home: " + playerScriptTwo.playerScore.ToString();
 
             }
             else{
-                playerScriptTwo.playerscoreText.text =  playerScriptTwo.playerscoreText.text = "Home: " + playerScriptTwo.playerScore.ToString();
+                playerScriptTwo.playerscoreText.text =  playerScriptTwo.playerscoreText.text = "Away: " + playerScriptTwo.playerScore.ToString();
             }
             if(transform.position.x == initalXGoal){
                 this.transform.position = new Vector3(-initalXGoal, intialYGoal, 0);

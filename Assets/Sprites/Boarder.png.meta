@@ -8,6 +8,9 @@ TextureImporter:
   - first:
       213: -4200660155744463842
     second: Boarder_1
+  - first:
+      213: 7794923390979868835
+    second: Boarder_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -141,7 +144,7 @@ TextureImporter:
         width: 491
         height: 163
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -162,7 +165,7 @@ TextureImporter:
         width: 485
         height: 163
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -170,6 +173,27 @@ TextureImporter:
       bones: []
       spriteID: e14d6ba28d144b5c0800000000000000
       internalID: -4200660155744463842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boarder_2
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 0
+        width: 487
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a80dba56812d2c60800000000000000
+      internalID: 7794923390979868835
       vertices: []
       indices: 
       edges: []
