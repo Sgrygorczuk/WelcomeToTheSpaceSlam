@@ -149,9 +149,9 @@ public class Goal : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D hitbox){
-        source.Play();
 
         if(hitbox.tag == "Player" && playerScript.isHoldingBall && playerGoal){
+            source.Play();
             playerScript.setIsHoldingBall(false);
             Instantiate(FX, transform.position, Quaternion.identity);
             startWave = true;
@@ -174,6 +174,7 @@ public class Goal : MonoBehaviour
         }
  
         if(hitbox.tag == "Player Two" && playerScriptTwo.isHoldingBall && playerGoal){
+            source.Play();
             playerScriptTwo.setIsHoldingBall(false);
             Instantiate(FX, transform.position, Quaternion.identity);
             startWave = true;

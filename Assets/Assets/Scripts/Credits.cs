@@ -11,7 +11,7 @@ public class Credits : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Escape) || text.transform.position.y > 10){
+        if(Input.GetKey(KeyCode.Escape) || text.transform.position.y > -4){
             SceneManager.LoadScene("MainMenu");
         }
     }
