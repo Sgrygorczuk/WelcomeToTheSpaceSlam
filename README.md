@@ -25,6 +25,8 @@ Player 2 Controls:
   Left Arrow - Move Left
   Up Arrow - Jump 
   Right Arrow - Move Right
+  
+Based on [Make Your First 2D Game with Unity & C# - Beginner Course](https://www.udemy.com/course/make-your-first-2d-game-with-unity-c-beginner-course/) by Blackthornprod. 
 
 Copyright © 2021 [Sebastian Grygorczuk](https://orczuk.github.io/)
 
