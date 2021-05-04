@@ -6,48 +6,45 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {    
     //============================== Vars 
-    private float xInput = 0;
-    private float yInput = 0;
-    public bool isInAir = false;
-    public float speed; 
+    private float xInput = 0; //X input speed 
+    private float yInput = 0; //Y input speed 
+    public bool isInAir = false; //Tells us if we're in the air 
+    public float speed;         //general speed 
 
     //========================== Frozen 
-    public bool isFrozen;
-    public bool hasBeenFrozen;
+    public bool isFrozen;       //Tells us if the player has been frozen 
+    public bool hasBeenFrozen;  //Used to stop spawning the brick after first one 
 
-    //============================ Slow Down
-    private float slowTimer;
-    public float SLOW_TIME;
-    public bool isSlowed;
-    private float speedSlow = 1;
+    //============================ SpeedM Mod
+    private float speedTimer;   //Timer 
+    public float SPEED_MOD_TIME;    //How long it will last 
+    private float speedModifier = 1;    //Speed change effect 
+    public bool isSpeedy; //Tells us that the player has the fast buff on them
+    public bool isSlowed;  //Tells us if the player is slowed  
 
     //============================== Trip 
-    private float trippedTimer;
-    public float TRIPPED_TIME;
-    public bool isTripped;
-    private float zAngle;
+    private float trippedTimer;     //Timer 
+    public float TRIPPED_TIME;      //How long the timer lasts
+    public bool isTripped;          //Tells us if the player is tripped 
+    private float zAngle;           //Rotation of the player 
 
     //========================= Holding Ball 
-    public bool isHoldingBall;
+    public bool isHoldingBall;     //Tells us if the ball is visible and can be dunked 
 
     //=========================== Immune 
-    private float immuneTimer;
-    public float IMMUNE_TIME;
-    public bool isImmune;
-
-    public int currentColorChange = 0; 
+    private float immuneTimer;  //Timer 
+    public float IMMUNE_TIME;   //How long the timer will last 
+    public bool isImmune;       //Is the immune state on 
+ 
+    public int currentColorChange = 0; //Which transition of color change we 
     private float r = 1;
     private float g = 0; 
     private float b = 0;
 
-    //======================= Speedy
-
-    public bool isSpeedy;
-
-    //============================= Referanced Object Traits 
-    public GameObject frozenBrick;
-    Rigidbody2D rigidbody;
-    Animator animator; 
+    //============================= Reference Object Traits 
+    public GameObject frozenBrick;  //Spawns a block of ice 
+    Rigidbody2D rigidbody;  //Used for physics 
+    Animator animator; //Used to update the given animation  
 
     //============================== Sprite
     public SpriteRenderer head;
@@ -58,32 +55,40 @@ public class Player : MonoBehaviour
     public SpriteRenderer rightLeg;
     public SpriteRenderer ball;
 
-    // Start is called before the first frame update
-
-    public TrailRenderer trailRenderer;
+    public TrailRenderer trailRenderer; //Reference to the tail object 
     
 
     //=================== Score 
-    public Text playerscoreText; 
+    public Text playerscoreText;  //Reference to the text object 
 
-    public int playerScore = 0;
+    public int playerScore = 0;   //Holds player score 
 
     //=================== Control 
 
-    public bool isPlayerTwo;
+    public bool isPlayerTwo;      //Tells us which control scheme to use 
 
-    public bool gameOver = false;
+    public bool gameOver = false; //Checks if the game timer ran out 
 
+    /**
+    *Initialize the timers, grab the player scrips
+    */
     void Start()
-    {
+    {   
+        //Timers 
         immuneTimer = IMMUNE_TIME;
-        slowTimer = SLOW_TIME;
+        speedTimer = SPEED_MOD_TIME;
         trippedTimer = TRIPPED_TIME;
-        animator = GetComponent<Animator>();     //Looks for the animatior object connected to the player 
+
+
+        animator = GetComponent<Animator>();     //Looks for the animator object connected to the player 
         rigidbody = GetComponent<Rigidbody2D>(); //Looks if the object has a RidgeBody2D component it can connect to 
-        trailRenderer = GetComponent<TrailRenderer>();
-        trailRenderer.time = 0;
-        ball.color = new Color (0, 0, 0, 0); 
+        trailRenderer = GetComponent<TrailRenderer>();  //Looks for the tail 
+       
+       
+        trailRenderer.time = 0;              //Set rander time 
+        ball.color = new Color (0, 0, 0, 0); //Sets color of the ball
+
+        //Score board initial text 
         if(isPlayerTwo){
             playerscoreText.text = "Home: " + playerScore.ToString();
         }
@@ -105,16 +110,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    /*
+    /**
     * Purpose: Has a timer that ticks down till the player is no longer slowed 
     */
     private void slowedSpeedyUpdates(){
         if(isSlowed || isSpeedy){
-            if(slowTimer <= 0){
-                slowTimer = SLOW_TIME;
+            if(speedTimer <= 0){
+                speedTimer = SPEED_MOD_TIME;
 
                 if(isSlowed){
-                     setIsSlowed(false);
+                    setIsSlowed(false);
                 }
                 if(isSpeedy){
                     setIsSpeedy(false);
@@ -122,14 +127,14 @@ public class Player : MonoBehaviour
 
             }
             else{
-                slowTimer -= Time.deltaTime;
+                speedTimer -= Time.deltaTime;
             }
         }
     }
 
 
-    /*
-    * Purpose: 
+    /**
+    * Purpose: If player hits rainbow ball they fly through a rainbow of colors 
     */
     private void immuneUpdates(){
        if(isImmune){
@@ -191,27 +196,15 @@ public class Player : MonoBehaviour
                     break;
                 }
             }
-
-            head.color = new Color (r, g, b, 1); 
-            body.color = new Color (r, g, b, 1);
-            rightArm.color = new Color (r, g, b, 1);
-            leftArm.color = new Color (r, g, b, 1);
-            rightLeg.color = new Color (r, g, b, 1);
-            leftLeg.color = new Color (r, g, b, 1);
-
+            
+            setBodyColor(r,g,b,1);
             trailRenderer.startColor = new Color (r, g, b, 0.1f);
 
             if(immuneTimer <= 0){
                 immuneTimer = IMMUNE_TIME;
                 isImmune = false;
-                trailRenderer.time = 0;
-                head.color = new Color (1, 1, 1, 1); 
-                body.color = new Color (1, 1, 1, 1); 
-                rightArm.color = new Color (1, 1, 1, 1); 
-                leftArm.color = new Color (1, 1, 1, 1); 
-                rightLeg.color = new Color (1, 1, 1, 1); 
-                leftLeg.color = new Color (1, 1, 1, 1); 
-
+                trailRenderer.time = 0f;
+                setBodyColor(1,1,1,1);
             }
             else{
                 immuneTimer -= Time.deltaTime;
@@ -219,7 +212,7 @@ public class Player : MonoBehaviour
         }
     }
 
-        /*
+    /**
     * Purpose: Has a timer that ticks down till the player is no longer slowed 
     */
     private void trippedUpdates(){
@@ -234,7 +227,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    /*
+    /**
     * Creates the block of ice that incases the player and sets that flag to true
     */
     private void frozenUpdates(){
@@ -245,11 +238,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    /*
-    * Purpise: Update the direction the player is facing and which animation should be active 
+    /**
+    * Purpose: Update the direction the player is facing and which animation should be active 
     */
     private void spriteUpdates(){
-                //Changes the running state 
+        //Changes the running state 
         if(isHoldingBall && xInput == 0){
             animator.SetBool("IsRunning", false);
             animator.SetBool("IsHolding", true);
@@ -267,6 +260,7 @@ public class Player : MonoBehaviour
             animator.SetBool("IsHolding", false);
         }
 
+        //Changes which way the player is facing 
         if(xInput > 0 && !isTripped){
             transform.eulerAngles = new Vector3(0,0,0);
         }
@@ -277,50 +271,15 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     //FixedUpdate function intreacts with the physics 
-    /*
-    *Purose: Update the rigidbody movment of the character 
+    /**
+    *Purpose: Update the rigidbody movement of the character 
     */
     void FixedUpdate()
     {
+        //Makes sure the game is not done 
         if(!gameOver){
-            //float input = Input.GetAxis("Horizontal"); Used for a transtional increase in speed 
-
             if(!isFrozen && !isTripped){
-                if(isPlayerTwo){
-                    if(Input.GetKey(KeyCode.A)){
-                        xInput = -1;
-                    }
-                    else if(Input.GetKey(KeyCode.D)){
-                        xInput = 1;
-                    }
-                    else{
-                        xInput = 0;
-                    }
-                }
-                else{
-                    if(Input.GetKey(KeyCode.LeftArrow)){
-                        xInput = -1;
-                    }
-                    else if(Input.GetKey(KeyCode.RightArrow)){
-                        xInput = 1;
-                    }
-                    else{
-                        xInput = 0;
-                    }
-                }
-
-                zAngle = 0;
-
-                if ((!isPlayerTwo && Input.GetKey(KeyCode.UpArrow) && !isInAir) || (isPlayerTwo && Input.GetKey(KeyCode.W) && !isInAir))
-                {
-                yInput = 8; 
-                isInAir = true;
-                }
-                else{
-                    yInput = rigidbody.velocity.y;
-                }
-
-                rigidbody.velocity = new Vector2(xInput * speed * speedSlow, yInput); //Updates the ridge body 
+                regularUpdate();
             }
             //If Frozen no movement 
             else if(isFrozen){
@@ -328,103 +287,150 @@ public class Player : MonoBehaviour
             }
             //If is tripped slides in the last moved direction 
             else if(isTripped){
-                if(trippedTimer >= TRIPPED_TIME/2f){
-                    rigidbody.velocity = new Vector2(xInput * speed * speedSlow, rigidbody.velocity.y); //Updates the ridge body 
-                }
-                else{
-                    rigidbody.velocity = new Vector2(0, 0);
-                }
-            
-                if(xInput > 0){
-                    zAngle += 3; 
-                    if(zAngle > 90){
-                        zAngle = 90;
-                    }
-                    transform.eulerAngles = new Vector3(0,0,zAngle);
-                }
-                else if(xInput < 0){
-                    zAngle -= 3; 
-                    if(zAngle < -90){
-                        zAngle = -90;
-                    }
-                    transform.eulerAngles = new Vector3(0,180,zAngle);
-                }
+                trippedUpdate();
             }
         }
     }
 
+    /**
+    *Purpose: Updates the player movement unimpaired 
+    */
+    void regularUpdate(){
+        //Read the player input and move them 
+        if((Input.GetKey(KeyCode.A) && isPlayerTwo) || (Input.GetKey(KeyCode.LeftArrow) && !isPlayerTwo)){
+            xInput = -1;
+        }
+        else if((Input.GetKey(KeyCode.D) && isPlayerTwo) ||(Input.GetKey(KeyCode.RightArrow) && !isPlayerTwo) ){
+            xInput = 1;
+        }
+        else{
+            xInput = 0;
+        }
+
+        //Make sure the player is upright 
+        zAngle = 0;
+
+        //Jumping 
+        if ((!isPlayerTwo && Input.GetKey(KeyCode.UpArrow) && !isInAir) || (isPlayerTwo && Input.GetKey(KeyCode.W) && !isInAir))
+        {
+            yInput = 8; 
+            isInAir = true;
+        }
+        else{
+            yInput = rigidbody.velocity.y;
+        }
+
+        //Pass all the info into the rigidbody 
+        rigidbody.velocity = new Vector2(xInput * speed * speedModifier, yInput); //Updates the ridge body 
+    }
+
+    /**
+    *Purpose: Updates the player movement if they were tripped 
+    */
+    void trippedUpdate(){
+        //For the first half keep the velocity the player initially had 
+         if(trippedTimer >= TRIPPED_TIME/2f){
+            rigidbody.velocity = new Vector2(xInput * speed * speedModifier, rigidbody.velocity.y); //Updates the ridge body 
+        }
+        //After that velocity is 0
+        else{
+            rigidbody.velocity = new Vector2(0, 0);
+        }
+        
+        //If the input is to the right rotate to the right 
+        if(xInput > 0){
+            zAngle += 3; 
+            if(zAngle > 90){
+                 zAngle = 90;
+            }
+            transform.eulerAngles = new Vector3(0,0,zAngle);
+        }
+        //Else rotate to the left 
+        else if(xInput < 0){
+            zAngle -= 3; 
+            if(zAngle < -90){
+                zAngle = -90;
+            }
+            transform.eulerAngles = new Vector3(0,180,zAngle);
+        }
+    }
+
+    /**
+    *Input: hitbox
+    *Purpose: Checks for collision with the floor to reset the jump flag 
+    */
     void OnTriggerEnter2D(Collider2D hitbox){
         if(hitbox.tag == "Ground"){
             isInAir = false;
         }
     }
 
-    /*
+    /**
     * Purpose: Changes the slow state that the player is in 
-    * Input: Bool slowed : upadtes isSlowed  
+    * Input: Bool slowed : updates isSlowed  
     */
     public void setIsSlowed(bool slowed){
         isSlowed = slowed;
+        //Set player to be green and slowed 
         if(isSlowed){
-            head.color = new Color (0, 1, 0, 1); 
-            body.color = new Color (0, 1, 0, 1); 
-            rightArm.color = new Color (0, 1, 0, 1); 
-            leftArm.color = new Color (0, 1, 0, 1); 
-            rightLeg.color = new Color (0, 1, 0, 1); 
-            leftLeg.color = new Color (0, 1, 0, 1); 
-
-            speedSlow = 0.25f;
+            setBodyColor(0,1,0,1);
+            speedModifier = 0.25f;
         }
+        //Sets player to be normal color and normal speed 
         else{
-            head.color = new Color (1, 1, 1, 1); 
-            body.color = new Color (1, 1, 1, 1); 
-            rightArm.color = new Color (1, 1, 1, 1); 
-            leftArm.color = new Color (1, 1, 1, 1); 
-            rightLeg.color = new Color (1, 1, 1, 1); 
-            leftLeg.color = new Color (1, 1, 1, 1); 
-            speedSlow = 1f;
+            setBodyColor(1,1,1,1);
+            speedModifier = 1f;
         }
     }
 
-        /*
+    /**
     * Purpose: Changes the slow state that the player is in 
-    * Input: Bool slowed : upadtes isSlowed  
+    * Input: Bool slowed : updates isSlowed  
     */
     public void setIsSpeedy(bool speedy){
         isSpeedy = speedy;
+        //If speed is on turn player red and make them faster 
         if(isSpeedy){
-            head.color = new Color (1, 0, 0, 1); 
-            body.color = new Color (1, 0, 0, 1); 
-            rightArm.color = new Color (1, 0, 0, 1); 
-            leftArm.color = new Color (1, 0, 0, 1); 
-            rightLeg.color = new Color (1, 0, 0, 1); 
-            leftLeg.color = new Color (1, 0, 0, 1); 
-
-            speedSlow = 1.5f;
+            setBodyColor(1, 0, 0, 1);
+            speedModifier = 1.5f;
         }
+        //Restart player to normal color and make their speed regular
         else{
-            head.color = new Color (1, 1, 1, 1); 
-            body.color = new Color (1, 1, 1, 1); 
-            rightArm.color = new Color (1, 1, 1, 1); 
-            leftArm.color = new Color (1, 1, 1, 1); 
-            rightLeg.color = new Color (1, 1, 1, 1); 
-            leftLeg.color = new Color (1, 1, 1, 1); 
-            speedSlow = 1f;
+            setBodyColor(1,1,1,1);
+            speedModifier = 1f;
         }
     }
 
-    public float getInput(){
-        return xInput;
-    }
+    /**
+    *Returns uses xInput (x Speed)
+    */
+    public float getInput(){ return xInput; }
 
-    public void setIsHoldingBall(bool visiblity){
-        isHoldingBall = visiblity;
+    /**
+    *Input: Visibility, tell us if the ball can be seen or not 
+    *Purpose: Make the ball that the player is carrying visible or not 
+    */
+    public void setIsHoldingBall(bool visibility){
+        isHoldingBall = visibility;
         if(isHoldingBall){
             ball.color = new Color (1, 1, 1, 1); 
         }
         else{
             ball.color = new Color (1, 1, 1, 0); 
         }
+    }
+
+    /**
+    *Input: r, g, b, values for red green blue and alpha 
+    *Purpose: Sets the color of the body 
+    */
+    void setBodyColor(float r, float g, float b, float a){
+            head.color = new Color (r, g, b, a); 
+            body.color = new Color (r, g, b, a); 
+            rightArm.color = new Color (r, g, b, a); 
+            leftArm.color = new Color (r, g, b, a); 
+            rightLeg.color = new Color (r, g, b, a); 
+            leftLeg.color = new Color (r, g, b, a); 
     }
 
 

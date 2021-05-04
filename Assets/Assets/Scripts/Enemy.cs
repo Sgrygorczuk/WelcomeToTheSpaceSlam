@@ -9,13 +9,12 @@ public class Enemy : MonoBehaviour
     Player playerScriptTwo;
     
     //============================= Vars
-    public float minSpeed;
-    public float maxSpeed;
-    public int damage;
-    private float speed;
-    public int type;
-    public GameObject splat;
-    public GameObject FX;
+    public float minSpeed;  //Min speed the ball can fly 
+    public float maxSpeed;  //Max speed the ball can fly 
+    private float speed;    //Speed of ball 
+    public int type;        //Which ball it is 
+    public GameObject splat; //Splat object that will spawn if slime ball hits ground 
+    public GameObject FX;   //Particle Effect 
 
     // Start is called before the first frame update
     void Start()
@@ -38,56 +37,16 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitbox){
         
+        //Updates player collision 
         if(hitbox.tag == "Player"){
-
-            if(type == 0){
-                playerScript.setIsHoldingBall(true);
-            }
-            else if(type == 1 && !playerScript.isSlowed &&  !playerScript.isSpeedy && !playerScript.isImmune ){
-                playerScript.setIsSpeedy(true);
-            }
-            else if(type == 2 && !playerScript.isFrozen && !playerScript.isImmune){
-                playerScript.isFrozen = true;
-            }
-            else if(type == 3 && !playerScript.isImmune){
-                playerScript.isImmune = true;
-                playerScript.trailRenderer.time = 1;
-            }
-            else if(type == 4 && !playerScript.isSlowed &&  !playerScript.isSpeedy && !playerScript.isImmune){
-                playerScript.setIsSlowed(true);
-            }
-
-            Instantiate(FX, playerScript.transform.position, Quaternion.identity);
-
-            Destroy(gameObject);
+            updatePlayerCollision(playerScript);
         }
-
         if(hitbox.tag == "Player Two"){
-
-            if(type == 0){
-                playerScriptTwo.setIsHoldingBall(true);
-            }
-            else if(type == 1 && !playerScriptTwo.isSlowed &&  !playerScriptTwo.isSpeedy && !playerScriptTwo.isImmune ){
-                playerScriptTwo.setIsSpeedy(true);
-            }
-            else if(type == 2 && !playerScriptTwo.isFrozen && !playerScriptTwo.isImmune){
-                playerScriptTwo.isFrozen = true;
-            }
-            else if(type == 3 && !playerScript.isImmune){
-                playerScriptTwo.isImmune = true;
-                playerScriptTwo.trailRenderer.time = 1;
-            }
-            else if(type == 4 && !playerScriptTwo.isSlowed &&  !playerScriptTwo.isSpeedy && !playerScriptTwo.isImmune){
-                playerScriptTwo.setIsSlowed(true);
-            }
-
-            Instantiate(FX, playerScriptTwo.transform.position, Quaternion.identity);
-
-            Destroy(gameObject);
+            updatePlayerCollision(playerScriptTwo);
         }
 
+        //Update collision with ground 
         if(hitbox.tag == "Ground"){
-
             if(type == 4){
                 Instantiate(splat, this.transform.position, Quaternion.identity);
             }
@@ -97,5 +56,37 @@ public class Enemy : MonoBehaviour
 
             Destroy(gameObject);
         }
+    }
+
+    /**
+    * Input: player 
+    * Purpose: Update collision between player and diffrent ball types 
+    */
+    void updatePlayerCollision(Player player){
+        //Regular ball 
+        if(type == 0){
+            player.setIsHoldingBall(true);
+        }
+        //Fire ball 
+        else if(type == 1 && !player.isSlowed &&  !player.isSpeedy && !player.isImmune ){
+            player.setIsSpeedy(true);
+        }
+        //Ice ball 
+        else if(type == 2 && !player.isFrozen && !player.isImmune){
+            player.isFrozen = true;
+        }
+        //Rainbow ball 
+        else if(type == 3 && !player.isImmune){
+            player.isImmune = true;
+            player.trailRenderer.time = 1;
+        }
+        //Slime Ball 
+        else if(type == 4 && !player.isSlowed &&  !player.isSpeedy && !player.isImmune){
+            player.setIsSlowed(true);
+        }
+       
+        //Make particle FX and destory ball 
+        Instantiate(FX, player.transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

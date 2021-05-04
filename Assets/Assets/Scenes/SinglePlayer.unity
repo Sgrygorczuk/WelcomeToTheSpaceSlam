@@ -1584,7 +1584,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4.8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3340,7 +3340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daac3680bb9cede5fb79d6292436f571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loseScreen: {fileID: 698131605}
   frontRow:
   - {fileID: 1272556326}
   - {fileID: 2075071895}
@@ -3371,12 +3370,13 @@ MonoBehaviour:
   - {fileID: 628300639}
   - {fileID: 1451501502}
   - {fileID: 2052111281}
-  FX: {fileID: 635260398012101645, guid: d63c4b0e876cddc989c73db534dacc91, type: 3}
+  playerGoal: 1
   timeText: {fileID: 1382458563}
   TIME: 120
+  loseScreen: {fileID: 698131605}
   endTeamText: {fileID: 1010146134}
   endScoreText: {fileID: 596483088}
-  playerGoal: 1
+  FX: {fileID: 635260398012101645, guid: d63c4b0e876cddc989c73db534dacc91, type: 3}
 --- !u!82 &801020737
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6427,7 +6427,6 @@ MonoBehaviour:
   startSpawn: 2.5
   MIN_TIME: 1.5
   decreaseTime: 0.001
-  player: {fileID: 1706785274}
   basketballSpawner: 0
 --- !u!1 &1561186072
 GameObject:
@@ -6812,7 +6811,8 @@ MonoBehaviour:
   speed: 8
   isFrozen: 0
   hasBeenFrozen: 0
-  SLOW_TIME: 1
+  SPEED_MOD_TIME: 2
+  isSpeedy: 0
   isSlowed: 0
   TRIPPED_TIME: 1
   isTripped: 0
@@ -6820,7 +6820,6 @@ MonoBehaviour:
   IMMUNE_TIME: 2
   isImmune: 0
   currentColorChange: 0
-  isSpeedy: 0
   frozenBrick: {fileID: 39985378529241940, guid: 17da6d5127b22d7658aa65ae491fa7aa, type: 3}
   head: {fileID: 1574830612}
   body: {fileID: 1137904569}
@@ -7299,7 +7298,8 @@ MonoBehaviour:
   speed: 8
   isFrozen: 0
   hasBeenFrozen: 0
-  SLOW_TIME: 1
+  SPEED_MOD_TIME: 2
+  isSpeedy: 0
   isSlowed: 0
   TRIPPED_TIME: 2
   isTripped: 0
@@ -7307,7 +7307,6 @@ MonoBehaviour:
   IMMUNE_TIME: 2
   isImmune: 0
   currentColorChange: 0
-  isSpeedy: 0
   frozenBrick: {fileID: 39985378529241940, guid: 17da6d5127b22d7658aa65ae491fa7aa, type: 3}
   head: {fileID: 1213984969}
   body: {fileID: 437418225}
@@ -7796,7 +7795,6 @@ MonoBehaviour:
   startSpawn: 4
   MIN_TIME: 4
   decreaseTime: 0
-  player: {fileID: 1706785274}
   basketballSpawner: 1
 --- !u!1 &1929103667
 GameObject:
@@ -8715,7 +8713,6 @@ MonoBehaviour:
   startSpawn: 2.5
   MIN_TIME: 1.5
   decreaseTime: 0.001
-  player: {fileID: 1706785274}
   basketballSpawner: 0
 --- !u!1 &2101574554
 GameObject:

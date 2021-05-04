@@ -4,38 +4,41 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
+    //================================= Timer 
+    private float spawnTimer; //Timer
+    public float SPAWN_TIME; //What timer resets to 
 
-    private float spawnTimer;
-    public float SPAWN_TIME;
-
+    //================================ Players 
     Player playerScript;
     Player playerScriptTwo;
 
     // Start is called before the first frame update
     void Start()
     {
-        spawnTimer = SPAWN_TIME;
+        spawnTimer = SPAWN_TIME; //Make sure to initialize otherwise it will disappear immediately 
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         playerScriptTwo = GameObject.FindGameObjectWithTag("Player Two").GetComponent<Player>();
     }
 
     // Update is called once per frame
+    /**
+    *Purpose: Updates ice brick if either of the players has it 
+    */
     void Update()
     {
-        if(spawnTimer <= 0 && playerScript.hasBeenFrozen){
-            spawnTimer = SPAWN_TIME;
-            playerScript.isFrozen = false;
-            playerScript.hasBeenFrozen = false;
-            Destroy(gameObject);
-        }
-        else{
-            spawnTimer -= Time.deltaTime;
-        }
+        timerUpdate(playerScript);
+        timerUpdate(playerScriptTwo);
+    }
 
-        if(spawnTimer <= 0 && playerScriptTwo.hasBeenFrozen){
+    /**
+    *Input: Player that
+    *Purpose: Update given players timer if brick is spawend 
+    */
+    void timerUpdate(Player player){
+        if(spawnTimer <= 0 && player.hasBeenFrozen){
             spawnTimer = SPAWN_TIME;
-            playerScriptTwo.isFrozen = false;
-            playerScriptTwo.hasBeenFrozen = false;
+            player.isFrozen = false;
+            player.hasBeenFrozen = false;
             Destroy(gameObject);
         }
         else{
